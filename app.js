@@ -13,17 +13,16 @@ let userOptions = {
     user_id: 'PeerAdmin',
     channel_id: 'mychannel',
     chaincode_id: 'fabcar',
-    network_url: 'grpc://localhost:7051'
+    network_url: 'grpc://localhost:7051',
 }
 
-let channel = {};
-let client = null;
+let channel = {}
+let client = new hfc()
 
-let queryCar = (call, callback) => {
+function queryCar(call, callback) {
     console.log(call.request.car)
     Promise.resolve().then(() => {
         console.log("Create a client and set the wallet location")
-        client = new hfc()
         return hfc.newDefaultKeyValueStore({ path: userOptions.wallet_path })
     }).then((wallet) => {
         console.log("Set wallet path, and associate user ", userOptions.user_id, " with application")
@@ -67,10 +66,10 @@ let queryCar = (call, callback) => {
 }
 
 function main() {
-  var server = new grpc.Server();
-  server.addService(fabcar_proto.FabcarService.service, {queryCar: queryCar});
-  server.bind('172.16.5.18:50051', grpc.ServerCredentials.createInsecure());
-  server.start();
+  let server = new grpc.Server()
+  server.addService(fabcar_proto.FabcarService.service, {queryCar: queryCar})
+  server.bind('172.16.5.18:50051', grpc.ServerCredentials.createInsecure())
+  server.start()
 }
 
-main();
+main()
