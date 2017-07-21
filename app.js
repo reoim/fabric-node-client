@@ -1,6 +1,6 @@
 'use strict'
 
-const PROTO_PATH = __dirname + '/../protos/fabcar.proto'
+const PROTO_PATH = __dirname + '/protos/fabcar.proto'
 
 const hfc = require('fabric-client')
 const path = require('path')
@@ -9,7 +9,7 @@ const grpc = require('grpc')
 const fabcar_proto = grpc.load(PROTO_PATH).fabcar
 
 let userOptions = {
-    wallet_path: path.join(__dirname, './../creds'),
+    wallet_path: path.join(__dirname, './creds'),
     user_id: 'PeerAdmin',
     channel_id: 'mychannel',
     chaincode_id: 'fabcar',
