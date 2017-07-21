@@ -13,16 +13,17 @@ let userOptions = {
     user_id: 'PeerAdmin',
     channel_id: 'mychannel',
     chaincode_id: 'fabcar',
-    network_url: 'grpc://localhost:7051',
+    network_url: 'grpc://localhost:7051'
 }
 
 let channel = {}
-let client = new hfc()
+let client = null
 
 function queryCar(call, callback) {
     console.log(call.request.car)
     Promise.resolve().then(() => {
         console.log("Create a client and set the wallet location")
+        client = new hfc()
         return hfc.newDefaultKeyValueStore({ path: userOptions.wallet_path })
     }).then((wallet) => {
         console.log("Set wallet path, and associate user ", userOptions.user_id, " with application")
